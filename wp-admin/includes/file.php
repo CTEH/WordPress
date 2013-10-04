@@ -211,6 +211,8 @@ function validate_file_to_edit( $file, $allowed_files = '' ) {
 	}
 }
 
+define('OVUP_FILTER_ADDED', true); // custom modification for Overwrite Uploads plugin
+
 /**
  * Handle PHP uploads in WordPress, sanitizing file names, checking extensions for mime type,
  * and moving the file to the appropriate directory within the uploads directory.
@@ -237,6 +239,8 @@ function wp_handle_upload( &$file, $overrides = false, $time = null ) {
 			return array( 'error'=>$message );
 		}
 	}
+
+    $overrides = apply_filters( 'wp_handle_upload_overrides', $overrides ); // custom modification for Overwrite Uploads plugin
 
 	$file = apply_filters( 'wp_handle_upload_prefilter', $file );
 
